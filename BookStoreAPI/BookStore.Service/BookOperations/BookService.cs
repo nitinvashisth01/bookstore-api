@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookStore.DataAccess.Entities;
 using BookStore.DataAccess.RepositoryInterfaces;
+using BookStore.Utils.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace BookStore.Service.BookOperations
         #region Class Members
 
         private readonly IGenericRepository<Book> _bookRepository;
+        private readonly IGenericRepository<BookType> _bookTypeRepository;
         private IMapper _mapper;
         private IUnitOfWork _unitOfWork;
 
@@ -20,9 +22,11 @@ namespace BookStore.Service.BookOperations
 
         #region Constructor
 
-        public BookService(IGenericRepository<Book> bookRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public BookService(IGenericRepository<Book> bookRepository, IGenericRepository<BookType> bookTypeRepository,
+                           IMapper mapper, IUnitOfWork unitOfWork)
         {
             _bookRepository = bookRepository;
+            _bookTypeRepository = bookTypeRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
@@ -43,6 +47,13 @@ namespace BookStore.Service.BookOperations
             _unitOfWork.BeginTransaction();
 
             var book = _mapper.Map<Book>(bookDto);
+
+            var bookType = _bookTypeRepository.GetById(bookDto.BookTypeId);
+
+            if(bookType == null)
+            {
+                throw new NotFoundException(Resource.BookTypeNotFound);
+            }
 
             book.BookAuthorLinks = new List<BookAuthorLink>();
 

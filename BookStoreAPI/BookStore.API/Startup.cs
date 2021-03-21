@@ -12,6 +12,7 @@ using BookStore.DataAccess.RepositoryInterfaces;
 using BookStore.DataAccess.RepositoryImplementations;
 using Microsoft.OpenApi.Models;
 using BookStore.Service.AuthorOperations;
+using BookStore.API.Filters;
 
 namespace BookStore.API
 {
@@ -54,6 +55,8 @@ namespace BookStore.API
                     Version = "v1"
                 });
             });
+
+            services.AddScoped<CustomExceptionFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

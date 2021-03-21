@@ -1,4 +1,5 @@
-﻿using BookStore.Service.BookOperations;
+﻿using BookStore.API.Filters;
+using BookStore.Service.BookOperations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 
 namespace BookStore.API.Controllers
 {
+    [ServiceFilter(typeof(CustomExceptionFilter), Order = 1)]
     [Route("api/books")]
     [ApiController]
     public class BookController : ControllerBase
