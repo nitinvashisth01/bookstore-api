@@ -23,6 +23,15 @@ namespace BookStore.API.Controllers
 
         #region End points
 
+        [HttpGet]
+        [Route("")]
+        public IActionResult GetBooks()
+        {
+            var books = _bookService.GetAll();
+
+            return Ok(books);
+        }
+
         #endregion
     }
 }
