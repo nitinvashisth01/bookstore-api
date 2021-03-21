@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using BookStore.Service.BookOperations;
+using BookStore.DataAccess.RepositoryInterfaces;
+using BookStore.DataAccess.RepositoryImplementations;
 
 namespace BookStore.API
 {
@@ -38,6 +41,8 @@ namespace BookStore.API
             IMapper mapper = mapperConfig.CreateMapper();
 
             services.AddSingleton(mapper);
+
+            ConfigureBookStoreServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +68,16 @@ namespace BookStore.API
             {
                 serviceScope.ServiceProvider.GetRequiredService<IDatabaseOperations>().ConfigureDatabase();
             }
+        }
+
+        private void ConfigureBookStoreServices(IServiceCollection services)
+        {
+            // Services
+            services.AddScoped<IBookService, BookService>();
+
+            //Repository
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
