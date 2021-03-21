@@ -12,6 +12,8 @@ namespace BookStore.DataAccess.Mappings
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.OrderQuantity).IsRequired();
+
             builder.HasOne(a => a.Order)
                 .WithMany(b => b.BookOrderLinks)
                 .HasForeignKey(c => c.OrderId)

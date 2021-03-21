@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BookNotAvailable" xml:space="preserve">
+    <value>Book is not available in the inventory</value>
+  </data>
+  <data name="BookNotFound" xml:space="preserve">
+    <value>Invalid Book Id</value>
+  </data>
   <data name="BookTypeNotFound" xml:space="preserve">
-    <value>Invalid Book Type</value>
+    <value>Invalid Book Type Id</value>
   </data>
 </root>

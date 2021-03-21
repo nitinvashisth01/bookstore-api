@@ -8,7 +8,7 @@ namespace BookStore.API.Controllers
 {
     [Route("api/authors")]
     [ApiController]
-    public class AuthorController : ControllerBase
+    public class AuthorController : BaseController
     {
         #region Class Members
 

@@ -2,10 +2,7 @@
 using BookStore.DataAccess.Entities;
 using BookStore.DataAccess.RepositoryInterfaces;
 using BookStore.Utils.Exceptions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BookStore.Service.BookOperations
 {
@@ -42,6 +39,18 @@ namespace BookStore.Service.BookOperations
             return _mapper.Map<IEnumerable<Book>, List<BookDto>>(books);
         }
 
+        public BookDto GetById(int bookId)
+        {
+            var book = _bookRepository.GetById(bookId);
+
+            if (book == null)
+            {
+                throw new NotFoundException(Resource.BookNotFound);
+            }
+
+            return _mapper.Map<BookDto>(book);
+        }
+
         public IList<BookTypeDto> GetBookTypes()
         {
             var bookTypes = _bookTypeRepository.GetAll();
@@ -61,6 +70,8 @@ namespace BookStore.Service.BookOperations
             {
                 throw new NotFoundException(Resource.BookTypeNotFound);
             }
+
+            book.IsAvailable = bookDto.Quantity > 0;
 
             book.BookAuthorLinks = new List<BookAuthorLink>();
 

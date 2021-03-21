@@ -61,7 +61,25 @@ namespace BookStore.Service {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid Book Type.
+        ///   Looks up a localized string similar to Book is not available in the inventory.
+        /// </summary>
+        public static string BookNotAvailable {
+            get {
+                return ResourceManager.GetString("BookNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Book Id.
+        /// </summary>
+        public static string BookNotFound {
+            get {
+                return ResourceManager.GetString("BookNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Book Type Id.
         /// </summary>
         public static string BookTypeNotFound {
             get {

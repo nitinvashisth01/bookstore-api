@@ -29,7 +29,7 @@ namespace BookStore.API.Filters
 
             switch (realException)
             {
-                case BadRequestException badRequestException:
+                case BadRequestException _:
                     httpCode = HttpStatusCode.BadRequest;
                     error.Code = httpCode.ToString();
                     break;

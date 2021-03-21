@@ -8,7 +8,7 @@ namespace BookStore.Service.BookOperations
         public int BookId { get; set; }
         public string BookName { get; set; }
         public decimal Price { get; set; }
-        public bool IsAvailble { get; set; }
+        public bool IsAvailable { get; set; }
         public int Quantity { get; set; }
         public int BookTypeId { get; set; }
         public IList<AuthorDto> Authors { get; set; }

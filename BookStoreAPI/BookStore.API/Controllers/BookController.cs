@@ -7,10 +7,9 @@ using System.Collections.Generic;
 
 namespace BookStore.API.Controllers
 {
-    [ServiceFilter(typeof(CustomExceptionFilter), Order = 1)]
     [Route("api/books")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class BookController : BaseController
     {
         #region Class Members
 
@@ -35,6 +34,19 @@ namespace BookStore.API.Controllers
         )]
         [SwaggerResponse(StatusCodes.Status200OK, "Returns Books List", typeof(IList<BookDto>))]
         public IActionResult GetBooks()
+        {
+            var books = _bookService.GetAll();
+
+            return Ok(books);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [SwaggerOperation(
+            Summary = "Retrieves book details by Id"
+        )]
+        [SwaggerResponse(StatusCodes.Status200OK, "Returns Book details", typeof(BookDto))]
+        public IActionResult GetBook([FromRoute] int bookId)
         {
             var books = _bookService.GetAll();
 
