@@ -1,5 +1,8 @@
 ﻿using BookStore.Service.BookOperations;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
 
 namespace BookStore.API.Controllers
 {
@@ -25,6 +28,10 @@ namespace BookStore.API.Controllers
 
         [HttpGet]
         [Route("")]
+        [SwaggerOperation(
+            Summary = "Retrieves List of Books"
+        )]
+        [SwaggerResponse(StatusCodes.Status200OK, "Returns Books List", typeof(IList<BookDto>))]
         public IActionResult GetBooks()
         {
             var books = _bookService.GetAll();
