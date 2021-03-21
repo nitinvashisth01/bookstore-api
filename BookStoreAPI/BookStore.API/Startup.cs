@@ -10,6 +10,7 @@ using AutoMapper;
 using BookStore.Service.BookOperations;
 using BookStore.DataAccess.RepositoryInterfaces;
 using BookStore.DataAccess.RepositoryImplementations;
+using Microsoft.OpenApi.Models;
 
 namespace BookStore.API
 {
@@ -43,6 +44,15 @@ namespace BookStore.API
             services.AddSingleton(mapper);
 
             ConfigureBookStoreServices(services);
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "BookStore API",
+                    Version = "v1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +78,10 @@ namespace BookStore.API
             {
                 serviceScope.ServiceProvider.GetRequiredService<IDatabaseOperations>().ConfigureDatabase();
             }
+
+            //Swagger API documentation
+            app.UseSwagger();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStore API"));
         }
 
         private void ConfigureBookStoreServices(IServiceCollection services)
