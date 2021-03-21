@@ -11,6 +11,7 @@ using BookStore.Service.BookOperations;
 using BookStore.DataAccess.RepositoryInterfaces;
 using BookStore.DataAccess.RepositoryImplementations;
 using Microsoft.OpenApi.Models;
+using BookStore.Service.AuthorOperations;
 
 namespace BookStore.API
 {
@@ -88,6 +89,7 @@ namespace BookStore.API
         {
             // Services
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IAuthorService, AuthorService>();
 
             //Repository
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
