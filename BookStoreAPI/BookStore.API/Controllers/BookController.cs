@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BookStore.API.Controllers
 {
-    [Route("books")]
+    [Route("api/books")]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -37,6 +37,18 @@ namespace BookStore.API.Controllers
             var books = _bookService.GetAll();
 
             return Ok(books);
+        }
+
+        [HttpPost]
+        [Route("")]
+        [SwaggerOperation(
+            Summary = "Create New Book"
+        )]
+        [SwaggerResponse(StatusCodes.Status200OK, "Return newly created book", typeof(BookDto))]
+        public IActionResult CreateBook([FromBody] BookDto bookDto)
+        {
+            var book = _bookService.Create(bookDto);
+            return Ok(book);
         }
 
         #endregion
