@@ -3,6 +3,7 @@ using BookStore.DataAccess.Entities;
 using BookStore.DataAccess.RepositoryInterfaces;
 using BookStore.Utils.Exceptions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BookStore.Service.BookOperations
 {
@@ -34,7 +35,7 @@ namespace BookStore.Service.BookOperations
 
         public IList<BookDto> GetAll()
         {
-            var books = _bookRepository.GetAll();
+            var books = _bookRepository.GetAll().Where(x => x.IsAvailable);
 
             return _mapper.Map<IEnumerable<Book>, List<BookDto>>(books);
         }

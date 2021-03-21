@@ -1,7 +1,9 @@
-﻿namespace BookStore.Service.OrderOperations
+﻿using System.Threading.Tasks;
+
+namespace BookStore.Service.OrderOperations
 {
     public interface IOrderService
     {
-        public void Create(OrderDto orderDto);
+        Task Create(OrderDto orderDto);
     }
 }

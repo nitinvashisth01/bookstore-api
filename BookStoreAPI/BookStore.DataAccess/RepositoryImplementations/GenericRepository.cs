@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BookStore.DataAccess.RepositoryImplementations
 {
@@ -71,6 +72,15 @@ namespace BookStore.DataAccess.RepositoryImplementations
         public virtual void Add(T entity)
         {
             _dbset.Add(entity);
+        }
+
+        /// <summary>
+        /// Generic Add Async method to add the entity in database
+        /// </summary>
+        /// <param name="entity"></param>
+        public virtual async Task AddAsync(T entity)
+        {
+            await _dbset.AddAsync(entity);
         }
 
         /// <summary>

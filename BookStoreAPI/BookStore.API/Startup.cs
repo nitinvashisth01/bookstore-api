@@ -33,7 +33,11 @@ namespace BookStore.API
 
             var defaultConnectionString = Configuration.GetConnectionString("BookStoreDbContext");
 
-            services.AddDbContext<BookStoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BookStoreDbContext")));
+            services.AddDbContext<BookStoreDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("BookStoreDbContext"));
+                options.UseLazyLoadingProxies();
+            });
 
             services.AddScoped<IDatabaseOperations, DatabaseOperations>();
 

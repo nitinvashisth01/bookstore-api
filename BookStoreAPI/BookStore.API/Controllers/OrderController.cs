@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace BookStore.API.Controllers
 {
@@ -31,9 +32,9 @@ namespace BookStore.API.Controllers
             Summary = "Create New Order"
         )]
         [SwaggerResponse(StatusCodes.Status200OK)]
-        public IActionResult CreateOrder([FromBody] OrderDto orderDto)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderDto orderDto)
         {
-            _orderService.Create(orderDto);
+            await _orderService.Create(orderDto);
             return Ok();
         }
 

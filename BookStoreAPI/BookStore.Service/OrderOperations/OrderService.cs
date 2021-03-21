@@ -3,6 +3,7 @@ using BookStore.DataAccess.Entities;
 using BookStore.DataAccess.RepositoryInterfaces;
 using BookStore.Utils.Exceptions;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BookStore.Service.OrderOperations
 {
@@ -32,7 +33,7 @@ namespace BookStore.Service.OrderOperations
 
         #region Interface Implementation
 
-        public void Create(OrderDto orderDto)
+        public async Task Create(OrderDto orderDto)
         {
             _unitOfWork.BeginTransaction();
 
@@ -68,7 +69,7 @@ namespace BookStore.Service.OrderOperations
 
             order.BookOrderLinks = bookOrderLinks;
 
-            _orderRepository.Add(order);
+            await _orderRepository.AddAsync(order);
             _orderRepository.Save();
 
             _unitOfWork.Commit();

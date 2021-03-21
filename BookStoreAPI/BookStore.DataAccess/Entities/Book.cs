@@ -11,7 +11,6 @@ namespace BookStore.DataAccess.Entities
         public decimal Price { get; set; }
         public int BookTypeId { get; set; }
         public virtual BookType BookType { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<BookAuthorLink> BookAuthorLinks { get; set; }
         public virtual ICollection<BookOrderLink> BookOrderLinks { get; set; }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BookStore.DataAccess.RepositoryInterfaces
 {
@@ -33,6 +34,12 @@ namespace BookStore.DataAccess.RepositoryInterfaces
         /// </summary>
         /// <param name="entity"></param>
         void Add(T entity);
+
+        /// <summary>
+        /// Generic Add Async method to add the entity in database
+        /// </summary>
+        /// <param name="entity"></param>
+        Task AddAsync(T entity);
 
         /// <summary>
         /// Generic Add Range method to add the entities in database
