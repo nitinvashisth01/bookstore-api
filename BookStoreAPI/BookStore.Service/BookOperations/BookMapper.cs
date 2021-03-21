@@ -15,6 +15,10 @@ namespace BookStore.Service.BookOperations
 
             CreateMap<BookDto, Book>()
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.BookName));
+
+            CreateMap<BookType, BookTypeDto>()
+                .ForMember(d => d.BookTypeId, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.BookTypeName, o => o.MapFrom(s => s.Name));
         }
     }
 }

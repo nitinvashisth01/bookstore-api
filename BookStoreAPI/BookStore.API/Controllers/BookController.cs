@@ -41,6 +41,19 @@ namespace BookStore.API.Controllers
             return Ok(books);
         }
 
+        [HttpGet]
+        [Route("bookTypes")]
+        [SwaggerOperation(
+            Summary = "Retrieves BookTypes"
+        )]
+        [SwaggerResponse(StatusCodes.Status200OK, "Returns BookTypes List", typeof(IList<BookDto>))]
+        public IActionResult GetBookTypes()
+        {
+            var bookTypes = _bookService.GetBookTypes();
+
+            return Ok(bookTypes);
+        }
+
         [HttpPost]
         [Route("")]
         [SwaggerOperation(

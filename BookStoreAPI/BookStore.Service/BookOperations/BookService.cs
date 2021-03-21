@@ -42,6 +42,13 @@ namespace BookStore.Service.BookOperations
             return _mapper.Map<IEnumerable<Book>, List<BookDto>>(books);
         }
 
+        public IList<BookTypeDto> GetBookTypes()
+        {
+            var bookTypes = _bookTypeRepository.GetAll();
+
+            return _mapper.Map<IEnumerable<BookType>, List<BookTypeDto>>(bookTypes);
+        }
+
         public BookDto Create(BookDto bookDto)
         {
             _unitOfWork.BeginTransaction();
