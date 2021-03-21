@@ -1,5 +1,8 @@
 ﻿using BookStore.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace BookStore.DataAccess.DatabaseContext
 {
@@ -11,6 +14,20 @@ namespace BookStore.DataAccess.DatabaseContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
+                             .Where(type => type.GetInterfaces()
+                             .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)));
+            foreach (var type in typesToRegister)
+            {
+                if (!type.ContainsGenericParameters)
+                {
+                    dynamic configurationInstance = Activator.CreateInstance(type);
+                    modelBuilder.ApplyConfiguration(configurationInstance);
+                }
+            }
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
         }
 
         public DbSet<Author> Authors { get; set; }
