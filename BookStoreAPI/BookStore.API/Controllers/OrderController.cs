@@ -1,4 +1,5 @@
 ﻿using BookStore.Service.OrderOperations;
+using BookStore.Utils.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -28,10 +29,9 @@ namespace BookStore.API.Controllers
 
         [HttpPost]
         [Route("")]
-        [SwaggerOperation(
-            Summary = "Create New Order"
-        )]
         [SwaggerResponse(StatusCodes.Status200OK)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Error", typeof(ErrorDto))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Error", typeof(ErrorDto))]
         public async Task<IActionResult> CreateOrder([FromBody] OrderDto orderDto)
         {
             await _orderService.Create(orderDto);

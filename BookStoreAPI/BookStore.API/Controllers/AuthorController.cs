@@ -1,4 +1,5 @@
 ﻿using BookStore.Service.AuthorOperations;
+using BookStore.Utils.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -28,9 +29,6 @@ namespace BookStore.API.Controllers
 
         [HttpGet]
         [Route("")]
-        [SwaggerOperation(
-            Summary = "Retrieves List of Authors"
-        )]
         [SwaggerResponse(StatusCodes.Status200OK, "Returns Authors List", typeof(IList<AuthorDto>))]
         public IActionResult GetAuthors()
         {
@@ -41,10 +39,8 @@ namespace BookStore.API.Controllers
 
         [HttpPost]
         [Route("")]
-        [SwaggerOperation(
-            Summary = "Create New Author"
-        )]
         [SwaggerResponse(StatusCodes.Status200OK, "Return newly created author", typeof(AuthorDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Error", typeof(ErrorDto))]
         public IActionResult CreateAuthor([FromBody] AuthorDto authorDto)
         {
             var author = _authorService.Create(authorDto);

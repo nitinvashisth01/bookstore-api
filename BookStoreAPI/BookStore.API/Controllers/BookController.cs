@@ -1,5 +1,6 @@
 ﻿using BookStore.API.Filters;
 using BookStore.Service.BookOperations;
+using BookStore.Utils.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -29,9 +30,6 @@ namespace BookStore.API.Controllers
 
         [HttpGet]
         [Route("")]
-        [SwaggerOperation(
-            Summary = "Retrieves List of Books"
-        )]
         [SwaggerResponse(StatusCodes.Status200OK, "Returns Books List", typeof(IList<BookDto>))]
         public IActionResult GetBooks()
         {
@@ -42,22 +40,17 @@ namespace BookStore.API.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [SwaggerOperation(
-            Summary = "Retrieves book details by Id"
-        )]
         [SwaggerResponse(StatusCodes.Status200OK, "Returns Book details", typeof(BookDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Error", typeof(ErrorDto))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Error", typeof(ErrorDto))]
         public IActionResult GetBook([FromRoute] int bookId)
         {
-            var books = _bookService.GetAll();
-
+            var books = _bookService.GetById(bookId);
             return Ok(books);
         }
 
         [HttpGet]
         [Route("bookTypes")]
-        [SwaggerOperation(
-            Summary = "Retrieves BookTypes"
-        )]
         [SwaggerResponse(StatusCodes.Status200OK, "Returns BookTypes List", typeof(IList<BookDto>))]
         public IActionResult GetBookTypes()
         {
@@ -68,10 +61,8 @@ namespace BookStore.API.Controllers
 
         [HttpPost]
         [Route("")]
-        [SwaggerOperation(
-            Summary = "Create New Book"
-        )]
         [SwaggerResponse(StatusCodes.Status200OK, "Return newly created book", typeof(BookDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Error", typeof(ErrorDto))]
         public IActionResult CreateBook([FromBody] BookDto bookDto)
         {
             var book = _bookService.Create(bookDto);
