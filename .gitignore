@@ -1,0 +1,8 @@
+.vs/
+Build/
+obj/
+bin/
+packages/
+*.user
+*.orig
+*.coverage
